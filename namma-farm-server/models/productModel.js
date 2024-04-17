@@ -6,6 +6,10 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      lowercase: true,
+    },
     description: {
       type: String,
     },
@@ -15,10 +19,11 @@ const productSchema = mongoose.Schema(
     },
     imageURL: {
       type: String,
-      required: true,
     },
     category: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "categories",
+      required: true,
     },
   },
   {

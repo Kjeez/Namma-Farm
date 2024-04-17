@@ -17,6 +17,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", require("./routes/authRoute.js"));
+app.use("/category", require("./routes/categoryRoute.js"));
+app.use("/product", require("./routes/productRoute.js"));
+
 
 app.listen(PORT, () => {
   console.log(`Server started at PORT ${PORT}`);
