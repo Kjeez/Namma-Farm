@@ -4,12 +4,18 @@ const bcrypt = require("bcrypt");
 
 const registerController = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
-    if (!name) {
+    if (!firstName) {
       return res.status(400).send({
         success: false,
-        message: "Name is required.",
+        message: "First Name is required.",
+      });
+    }
+    if (!lastName) {
+      return res.status(400).send({
+        success: false,
+        message: "Last Name is required.",
       });
     }
     if (!email) {
@@ -38,7 +44,8 @@ const registerController = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await new userModel({
-      name,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
     }).save();
