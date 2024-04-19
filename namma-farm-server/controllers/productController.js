@@ -4,7 +4,7 @@ const slugify = require("slugify");
 
 const createProductController = async (req, res) => {
   try {
-    const { name, description, price, category } = req.body;
+    const { name, description, price, category, quantity } = req.body;
     if (!name) {
       return res.status(400).send({
         success: false,
@@ -27,6 +27,12 @@ const createProductController = async (req, res) => {
       return res.status(400).send({
         success: false,
         message: "Product category is required!",
+      });
+    }
+    if (!quantity) {
+      return res.status(400).send({
+        success: false,
+        message: "Product quantity is required!",
       });
     }
 
@@ -53,12 +59,14 @@ const createProductController = async (req, res) => {
       description,
       price,
       category,
+      quantity,
       slug: slugify(name),
     }).save();
 
     res.status(200).send({
       success: true,
       message: "Product created successfully",
+      product,
     });
   } catch (error) {
     console.log(error);
@@ -69,4 +77,123 @@ const createProductController = async (req, res) => {
   }
 };
 
-module.exports = { createProductController };
+const getSingleProductByIdController = async (req, res) => {
+  try {
+    const { productId } = req.params;
+
+    if (!productId) {
+      return res.status(400).send({
+        message: "Product Id is required",
+        success: false,
+      });
+    }
+
+    const product = await productModel.findById({ _id: productId });
+
+    if (!product) {
+      return res.status(400).send({
+        message: "Product not found",
+        success: false,
+      });
+    }
+
+    res.status(200).send({
+      message: "Product fetched successfully",
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Something went wrong!",
+      success: false,
+    });
+  }
+};
+
+const updateProductController = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const { name, description, price, category, quantity } = req.body;
+
+    if (!productId) {
+      return res.status(400).send({
+        message: "Product Id is required!",
+        success: false,
+      });
+    }
+
+    const product = await productModel.findById({ _id: productId });
+    if (!product) {
+      return res.status(400).send({
+        message: "Product doesnot exist!",
+        success: false,
+      });
+    }
+
+    const updatedProduct = await productModel.findByIdAndUpdate(
+      { _id: productId },
+      {
+        name: name,
+        description: description,
+        price: price,
+        category: category,
+        quantity: quantity,
+      },
+      { new: true }
+    );
+
+    res.status(200).send({
+      message: "Product updated successfully!",
+      success: true,
+      updatedProduct,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Something went wrong!",
+      success: false,
+    });
+  }
+};
+
+const deleteProductByIdController = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    if (!productId) {
+      return res.status(400).send({
+        message: "Product Id is required",
+        success: false,
+      });
+    }
+
+    const deletedProduct = await productModel.findByIdAndDelete({
+      _id: productId,
+    });
+
+    if (!deletedProduct) {
+      return res.status(400).send({
+        message: "Product not found",
+        success: false,
+      });
+    }
+
+    res.status(200).send({
+      message: "Product deleted successfully",
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Something went wrong!",
+      success: false,
+    });
+  }
+};
+
+module.exports = {
+  createProductController,
+  getSingleProductByIdController,
+  updateProductController,
+  deleteProductByIdController
+};

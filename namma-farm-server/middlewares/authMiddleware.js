@@ -1,4 +1,5 @@
 const JWT = require("jsonwebtoken");
+const userModel = require("../models/userModel");
 
 const requireSignIn = async (req, res, next) => {
   //verifying JWT token
@@ -19,4 +20,24 @@ const requireSignIn = async (req, res, next) => {
   }
 };
 
-module.exports = { requireSignIn };
+const requireAdmin = async (req, res, next) => {
+  try {
+    const user = await userModel.findById(req.user.userId);
+    if (!user.isAdmin) {
+      res.status(401).send({
+        success: false,
+        message: "Unauthorized Access",
+      });
+    } else {
+      next();
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({
+      success: false,
+      message: "Auth failed",
+    });
+  }
+};
+
+module.exports = { requireSignIn, requireAdmin };
