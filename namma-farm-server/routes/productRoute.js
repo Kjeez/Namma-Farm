@@ -4,6 +4,7 @@ const {
   getSingleProductByIdController,
   updateProductController,
   deleteProductByIdController,
+  filterAndSortProductsController,
 } = require("../controllers/productController");
 const {
   requireAdmin,
@@ -36,5 +37,7 @@ router.delete(
   requireAdmin,
   deleteProductByIdController
 );
+
+router.get("/filterAndSortProducts", filterAndSortProductsController);
 
 module.exports = router;

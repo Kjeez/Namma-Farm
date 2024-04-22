@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const categoryModel = require("../models/categoryModel");
 const productModel = require("../models/productModel");
 const slugify = require("slugify");
@@ -191,9 +192,39 @@ const deleteProductByIdController = async (req, res) => {
   }
 };
 
+const filterAndSortProductsController = async (req, res) => {
+  try {
+    let query = {};
+    if (req.query.category) {
+      query.category = new mongoose.Types.ObjectId(req.query.category);
+    }
+    let sortOptions = {};
+    if (req.query.sort === "asc") {
+      sortOptions.price = 1;
+    } else if (req.query.sort === "desc") {
+      sortOptions.price = -1;
+    }
+
+    // Execute the query with optional filtering and sorting
+    const products = await productModel.find(query).sort(sortOptions);
+    res.status(200).send({
+      success: true,
+      message: "Products filtered and sorted!",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Something went wrong!",
+      success: false,
+    });
+  }
+};
+
 module.exports = {
   createProductController,
   getSingleProductByIdController,
   updateProductController,
-  deleteProductByIdController
+  deleteProductByIdController,
+  filterAndSortProductsController,
 };
