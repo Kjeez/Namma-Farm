@@ -205,8 +205,26 @@ const filterAndSortProductsController = async (req, res) => {
       sortOptions.price = -1;
     }
 
-    // Execute the query with optional filtering and sorting
-    const products = await productModel.find(query).sort(sortOptions);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const pipeline = [
+      {
+        $match: query,
+      },
+      {
+        $sort: sortOptions,
+      },
+      {
+        $skip: skip,
+      },
+      {
+        $limit: limit,
+      },
+    ];
+    const products = await productModel.aggregate(pipeline);
+
     res.status(200).send({
       success: true,
       message: "Products filtered and sorted!",
