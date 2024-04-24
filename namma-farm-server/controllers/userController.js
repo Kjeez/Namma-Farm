@@ -232,6 +232,7 @@ const sendOtpController = async (req, res) => {
       text: `Your OTP for password reset is: ${otp}. Please use this OTP to reset your password.`,
     };
     await transporter.sendMail(mailOptions);
+
     res.status(200).send({
       success: true,
       message: "OTP sent successfully",

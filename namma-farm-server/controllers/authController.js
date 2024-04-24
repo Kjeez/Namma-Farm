@@ -1,6 +1,7 @@
 const JWT = require("jsonwebtoken");
 const userModel = require("../models/userModel.js");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 
 const registerController = async (req, res) => {
   try {
@@ -50,6 +51,32 @@ const registerController = async (req, res) => {
       password: hashedPassword,
       phone: phone,
     }).save();
+
+    const transporter = nodemailer.createTransport({
+      host: "smtpout.secureserver.net",
+      secure: true,
+      secureConnection: false,
+      tls: {
+        ciphers: "SSLv3",
+      },
+      requireTLS: true,
+      port: 465,
+      debug: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "User Registered Successfully",
+      text: `${firstName} ${lastName} has registered successfully`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
     res.status(200).send({
       success: true,
       message: "User registered successfully.",
