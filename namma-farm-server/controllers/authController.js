@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 const registerController = async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, phone } = req.body;
 
     if (!firstName) {
       return res.status(400).send({
@@ -48,6 +48,7 @@ const registerController = async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
+      phone: phone,
     }).save();
     res.status(200).send({
       success: true,

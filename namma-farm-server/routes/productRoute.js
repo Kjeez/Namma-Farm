@@ -5,6 +5,8 @@ const {
   updateProductController,
   deleteProductByIdController,
   filterAndSortProductsController,
+  addRatingController,
+  getTotalRatingController,
 } = require("../controllers/productController");
 const {
   requireAdmin,
@@ -40,5 +42,7 @@ router.delete(
 
 router.get("/filterAndSortProducts", filterAndSortProductsController);
 
+router.post("/addRating/:userId", addRatingController);
+router.get("/getTotalRating/:productId", getTotalRatingController);
 
 module.exports = router;

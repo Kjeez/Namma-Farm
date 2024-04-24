@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 const categoryModel = require("../models/categoryModel");
 const productModel = require("../models/productModel");
 const slugify = require("slugify");
+const userModel = require("../models/userModel");
 
 const createProductController = async (req, res) => {
   try {
@@ -140,6 +141,7 @@ const updateProductController = async (req, res) => {
         price: price,
         category: category,
         quantity: quantity,
+        slug: slugify(name),
       },
       { new: true }
     );
@@ -239,10 +241,105 @@ const filterAndSortProductsController = async (req, res) => {
   }
 };
 
+const addRatingController = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { productId, star } = req.body;
+
+    if (!userId) {
+      return res.status(400).send({
+        message: "User Id is required!",
+        success: false,
+      });
+    }
+    if (!productId) {
+      return res.status(400).send({
+        message: "Product Id is required!",
+        success: false,
+      });
+    }
+
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(400).send({
+        message: "User not found!",
+        success: false,
+      });
+    }
+
+    const product = await productModel.findOneAndUpdate(
+      {
+        _id: productId,
+        "ratings.postedby": userId,
+      },
+      { $set: { "ratings.$.star": star } }, // Update the existing rating
+      { new: true }
+    );
+
+    if (!product) {
+      const updatedProduct = await productModel.findByIdAndUpdate(
+        { _id: productId },
+        { $push: { ratings: { star, postedby: userId } } },
+        { new: true }
+      );
+      return res.status(200).send({
+        message: "Rating added successfully",
+        success: true,
+        updatedProduct,
+      });
+    }
+    res.status(200).send({
+      message: "Rating added successfully",
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Something went wrong!",
+      success: false,
+    });
+  }
+};
+
+const getTotalRatingController = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await productModel.findById(productId);
+
+    if (!product) {
+      return res.status(400).send({
+        success: false,
+        message: "Product not found!",
+      });
+    }
+    const totalRatings = product.ratings.length;
+    let totalStars = 0;
+    product.ratings.forEach((rating) => {
+      totalStars += rating.star;
+    });
+
+    const rating = totalStars / totalRatings;
+    res.status(200).send({
+      message: "Rating fetched successfully",
+      success: true,
+      rating,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Something went wrong!",
+      success: false,
+    });
+  }
+};
+
 module.exports = {
   createProductController,
   getSingleProductByIdController,
   updateProductController,
   deleteProductByIdController,
   filterAndSortProductsController,
+  addRatingController,
+  getTotalRatingController
 };
