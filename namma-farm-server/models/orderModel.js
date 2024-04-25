@@ -2,12 +2,11 @@ const mongoose = require("mongoose");
 
 const orderSchema = mongoose.Schema(
   {
-    userId: {
+    orderby: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
-      required: true,
     },
-    items: [
+    products: [
       {
         productId: {
           type: mongoose.Schema.ObjectId,
@@ -24,14 +23,23 @@ const orderSchema = mongoose.Schema(
         },
       },
     ],
+    paymentIntent: {},
+    orderStatus: {
+      type: String,
+      default: "Not Processed",
+      enum: [
+        "Not Processed",
+        "Cash on Delivery",
+        "Processing",
+        "Dispatched",
+        "Cancelled",
+        "Delivered",
+      ],
+    },
     totalPrice: {
       type: Number,
       required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-    },
+    }
   },
   {
     timestamps: true,
