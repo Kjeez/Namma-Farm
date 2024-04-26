@@ -22,6 +22,8 @@ app.use("/category", require("./routes/categoryRoute.js"));
 app.use("/product", require("./routes/productRoute.js"));
 app.use("/wishlist", require("./routes/wishlistRoute.js"));
 app.use("/coupon", require("./routes/couponRoute.js"));
+app.use("/order", require("./routes/orderRoute.js"));
+
 
 app.listen(PORT, () => {
   console.log(`Server started at PORT ${PORT}`);

@@ -1,8 +1,19 @@
+const { S3Client } = require("@aws-sdk/client-s3");
+const { PutObjectCommand } = require("@aws-sdk/client-s3");
 const { default: mongoose } = require("mongoose");
 const categoryModel = require("../models/categoryModel");
 const productModel = require("../models/productModel");
 const slugify = require("slugify");
 const userModel = require("../models/userModel");
+const multer = require("multer");
+
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: "",
+    secretAccessKey: "",
+  },
+  region: "ap-south-1",
+});
 
 const createProductController = async (req, res) => {
   try {
@@ -56,12 +67,36 @@ const createProductController = async (req, res) => {
       return;
     }
 
+    const images = req.files;
+
+    let savedImages = [];
+
+    const uploadedImages = await Promise.all(
+      images.map(async (image) => {
+        const params = {
+          Bucket: "bucketName",
+          Key: image.originalname,
+          Body: image.buffer,
+          ContentType: image.mimetype,
+          ACL: "public-read",
+        };
+
+        const command = new PutObjectCommand(params);
+        await s3.send(command);
+        const img = {
+          imageUrl: `https://your-bucket.s3.amazonaws.com/${image.originalname}`,
+        };
+        savedImages.push(img);
+      })
+    );
+
     const product = await new productModel({
       name,
       description,
       price,
       category,
       quantity,
+      images: savedImages,
       slug: slugify(name),
     }).save();
 
@@ -341,5 +376,5 @@ module.exports = {
   deleteProductByIdController,
   filterAndSortProductsController,
   addRatingController,
-  getTotalRatingController
+  getTotalRatingController,
 };

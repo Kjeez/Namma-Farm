@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 const {
   createProductController,
   getSingleProductByIdController,
@@ -15,10 +16,14 @@ const {
 
 const router = express.Router();
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 router.post(
   "/create-product",
   requireSignIn,
   requireAdmin,
+  upload.array("images", 12),
   createProductController
 );
 router.get(
