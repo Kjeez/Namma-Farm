@@ -9,15 +9,19 @@ const multer = require("multer");
 
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: "",
-    secretAccessKey: "",
+    accessKeyId: process.env.S3_ACCESS_KEY,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
   },
-  region: "ap-south-1",
+  region: process.env.BUCKET_REGION,
 });
 
 const createProductController = async (req, res) => {
   try {
-    const { name, description, price, category, quantity } = req.body;
+    // Access JSON data from form-data
+    const productData = JSON.parse(req.body.productData);
+
+    const { name, description, price, category, quantity } = productData;
+
     if (!name) {
       return res.status(400).send({
         success: false,
@@ -74,17 +78,16 @@ const createProductController = async (req, res) => {
     const uploadedImages = await Promise.all(
       images.map(async (image) => {
         const params = {
-          Bucket: "bucketName",
+          Bucket: process.env.BUCKET_NAME,
           Key: image.originalname,
           Body: image.buffer,
           ContentType: image.mimetype,
-          ACL: "public-read",
         };
 
         const command = new PutObjectCommand(params);
         await s3.send(command);
         const img = {
-          imageUrl: `https://your-bucket.s3.amazonaws.com/${image.originalname}`,
+          imageUrl: `https://${process.env.BUCKET_NAME}.s3.amazonaws.com/${image.originalname}`,
         };
         savedImages.push(img);
       })
