@@ -5,7 +5,10 @@ const Footer = () => {
     <>
       <div className="footer bg-footer h-80 flex justify-evenly text-white">
         <div className="footer-linksewf flex flex-col pt-20">
-          <img src="" alt="image" />
+          <div className='mb-4'>
+          <img src="/assets/Link → logo_big.png.png" alt="image" />
+
+          </div>
           <p>We are a eccomerce <br />platform to buy</p>
           <p>For Queries email us :</p>
           <a className='underline' href=""> <Link>welovetalking@nammafarm.in</Link></a>

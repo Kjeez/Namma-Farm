@@ -6,7 +6,7 @@ export default {
   ],
   theme: {
     extend: {
-      "colors":{
+      colors:{
         "green":"#04773B",
         "brown":"#985E33",
         "orange":"#E87519",
@@ -17,8 +17,12 @@ export default {
         "ligt-grey":"#F5F5F5",
         "light-green":"#B7D354"
       },
-      "fontFamily":{
+      fontFamily:{
 
+      },
+      backgroundImage: {
+        'banner': "url('/assets/woman-harvesting-vegetables 1.png')",
+        'carousal': "url('/assets/Untitled design 1.png')",
       }
     },
   },

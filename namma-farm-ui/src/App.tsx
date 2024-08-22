@@ -10,6 +10,9 @@ import AboutUs from './pages/aboutUs/AboutUs.jsx'
 import Faq from './components/faq/Faq.jsx'
 import Billing from './pages/billing/Billing.jsx'
 import PaymentMode from './pages/payment/Payment.jsx'
+import ProductDetail from './pages/productDetail/ProductDetail.jsx'
+import AllProducts from './pages/allProducts/AllProducts.jsx'
+import OrderHistory from './pages/orderHistory/OrderHistory.jsx'
 
 function App() {
   return (<>
@@ -23,6 +26,9 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/addAddress" element={<Billing />} />
       <Route path="paymentMode" element={<PaymentMode />} />
+      <Route path="/productDetail" element={<ProductDetail />} />
+      <Route path="/allProducts" element={<AllProducts />} />
+      <Route path="/orderHistory" element={<OrderHistory />} />
       <Route path="*" element={<NoPage />} />
     </Routes>
     <Footer />

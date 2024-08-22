@@ -9,7 +9,7 @@ const Header = () => {
   const [isCart, setIsCart] = useState(false)
   return (
     <div>
-      <div className='flex justify-evenly bg-orange pt-4 pb-4'>
+      <div className='flex justify-around bg-orange pt-4 pb-4'>
         <div className='text-white italic'>FREE express international delivery + EASY returns </div>
         <div>
           <div>
@@ -26,7 +26,7 @@ const Header = () => {
 
       <div className='flex justify-evenly pt-6 pb-6'>
         <div className='logo'>
-          <Link to="/"><img src="" alt="logo" /></Link>
+          <Link to="/"><img src="/assets/Link → logo_big.png.png" alt="logo" /></Link>
         </div>
         <div className='navigation'>
           <ul className='flex'>
@@ -70,7 +70,7 @@ const Header = () => {
             </svg>
           </div>
           <div className="bag mx-2">
-            {isCart ? <Cart setIsCart={setIsCart} /> :
+            {isCart ? <Cart setIsCart={setIsCart} title="Checkout" /> :
               <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setIsCart(true)} width="19" height="19" fill="currentColor" class="bi bi-bag hover:cursor-pointer" viewBox="0 0 16 16">
                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
               </svg>

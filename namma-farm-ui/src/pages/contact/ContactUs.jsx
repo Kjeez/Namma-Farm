@@ -3,8 +3,8 @@ import React from 'react'
 const ContactUs = () => {
   return (
     <>
-      <div className="map h-96 bg-black">
-        <h1 className='text-white text-4xl'>Google map area</h1>
+      <div className="map">
+        <img src="public/assets/Container.png" width={5000} alt="" />
 
       </div>
       <div className="lower-div mt-20 h-96">

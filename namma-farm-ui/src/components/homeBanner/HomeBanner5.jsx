@@ -6,7 +6,10 @@ const HomeBanner5 = () => {
     <div className="flex">
         <div className="left w-full h-96 flex justify-center items-center bg-light-yellow">
             <div className="div border-2 flex border-orange w-full mx-24 h-60">
-                  <img src="" className='border-2 my-8 mx-12' width={150} height={100} alt="image" />
+              <div className='mt-11'>
+              <img src="/assets/Icon.png" className='my-8 mx-12' width={70} height={70} alt="image" />
+              </div>
+                  
                   <div className='mt-8'>
                     <p className='text-brown'>Phone support</p>
                     <p className='font-bold text-2xl my-2'>Call US 24/7</p>
@@ -17,7 +20,10 @@ const HomeBanner5 = () => {
         </div>
         <div className="right w-full h-96 flex justify-center items-center bg-extra-light-yellow">
         <div className="div border-2 flex border-orange w-full mx-24 h-60">
-                  <img src="" className='border-2 my-8 mx-12' width={150} height={100} alt="image" />
+          <div className='mt-11'>
+          <img src="/assets/megaphone (1) 1.png" className=' my-8 mx-12' width={70} height={70} alt="image" />
+          </div>
+                  
                   <div className='mt-8'>
                     <p className='text-brown'>Social media</p>
                     <p className='font-bold text-orange my-2'>CONNECT WITH US</p>

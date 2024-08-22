@@ -4,7 +4,7 @@ const SingleItem = ({ item }) => {
     return (
         <>
             <div className='border2 flex justify-center py-2'>
-                <img src="" width={150} height={150} className='border-2 mx-8' alt="image" />
+                <img src="/assets/image.png" width={150} height={150} className='border-2 mx-8' alt="image" />
                 <div className='mx-2'>
                     <div className="flex ml-28 bg-red-100 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-x-lg text-red-700 mt-0.5 ml-1" viewBox="0 0 16 16">
@@ -30,10 +30,10 @@ const SingleItem = ({ item }) => {
         </>
     )
 }
-const Cart = ({ items, setIsCart }) => {
+const Cart = ({ items, setIsCart,title }) => {
     return (
         <>
-            <div className='flex absolute bg-white justify-center border-2 flex-col w-96'>
+            <div className='flex z-30 shadow-lg absolute top-0 right-0 bg-white justify-center flex-col w-96'>
                 <div className="top flex items-center">
                     <span className='text-2xl ml-8 my-8'>SHOPPING CART</span><div className='bg-yellow mx-2 text-white rounded-full px-2'>2</div>
                     <span onClick={() => setIsCart(false)} className='ml-20'>
@@ -48,15 +48,20 @@ const Cart = ({ items, setIsCart }) => {
                     <SingleItem />
                     <SingleItem />
                 </div>
+                {title!="Checkout" && <div className='flex my-8 justify-evenly items-center'>
+                    <input type="text" placeholder='Coupon Code' className='border-2 pl-2 py-1' />
+                    <button className='border-2 border-neutral-700 rounded-sm px-2 py-1 bg-gray-200  text-sm'>Apply</button>
+                </div>}
+                
                 <div className="bottom bg-light-yellow p-8">
                     <p className='text-sm'>Shipping and taxes calculated at checkout</p>
                     <hr className='border-black mt-2'></hr>
                     <span className='text-sm'>Total Payment</span><span className='ml-28 text-2xl font-bold'>749.00</span><br />
-                    <button className='bg-black flex mt-4 text-white text-sm py-3 px-28 rounded-full'>
+                    <button className='bg-black mt-4 text-white text-sm py-3 w-full flex justify-center text-center rounded-full'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4 mr-1" viewBox="0 0 16 16">
                             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
                         </svg>
-                        <Link to="/addAddress">Checkout</Link></button>
+                        <Link to="/addAddress">{title}</Link></button>
                 </div>
             </div>
         </>
