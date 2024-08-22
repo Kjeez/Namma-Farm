@@ -2,9 +2,9 @@ import React from 'react'
 
 const SingleIcon = ({title,icon}) => {
     return (
-        <div className='pt-12 pb-12'>
-            <img src={icon} alt="image" />
-            <p>{title}</p>
+        <div className='pt-8 pb-12'>
+            <img src={icon} className='ml-7 mb-4 ' alt="image" />
+            <p className='font-semibold'>{title}</p>
         </div>
     )
 }

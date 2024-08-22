@@ -7,7 +7,7 @@ const LoginForm = () => {
     <>
       <div className="form border-2 mx-60 my-4">
         <div className="top h-16 flex">
-          <div className={(state ? `w-full text-center hover:cursor-pointer` : `bg-black w-full text-center hover:cursor-pointer`)} onClick={() => setState(false)}><p className={state ? `text-2xl mt-1 text-black pt-3` : 'text-2xl text-white mt-1 pt-3'}>Sign in</p></div>
+          <div className={(state ? `w-full text-center hover:cursor-pointer` : `bg-black w-full text-center hover:cursor-pointer`)} onClick={() => setState(false)}><p className={state ? `text-2xl mt-1 text-black pt-3` : 'text-2xl text-white mt-1 pt-3'}>Sign In</p></div>
           <div className={!state ? `w-full text-center hover:cursor-pointer` : `bg-black w-full text-center hover:cursor-pointer`} onClick={() => setState(true)} ><p className={!state ? 'text-black text-2xl pt-3' : 'text-white text-2xl pt-3'}>Sign Up</p></div>
         </div>
         <div className="bottom-section flex items-center justify-evenly py-32">

@@ -4,7 +4,9 @@ const Card = () => {
   return (
     <>
     <div className="card flex shadow-lg py-2 my-8 mx-4 h-30 justify-evenly">
-         <img src="ewr" alt="image" />
+      <div className='p-8'>
+      <img src="/assets/service_5 2.png" width={80} alt="image" />
+      </div>
          <div className="text w-96">
           <h1 className='text-2xl font-semibold'>Lorem ipsum dolor sit amet consectetur.</h1>
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis natus officiis quas possimus nisi sapiente corporis blanditiis.</p>
@@ -23,13 +25,13 @@ const Card = () => {
 const AboutUs = () => {
   return (
     <>
-    <div className="baner1 h-96 bg-black">
-      
+    <div className="baner1">
+      <img className='' src="/assets/close-up-hands-holding-beans 1.png" width={6000} alt="" />
     </div>
 
     <div className="banner2 pt-10  pb-10 my-5 flex justify-evenly">
       <div className="img bg-cover">
-        <img className='w-96 h-96 mt-3 rounded-bl-3xl rounded-tr-3xl' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGi4gPwjRV_OZLBzt0llgZxYsgmVRLt9z6gA&s" alt="" />
+        <img className='w-96 h-96 mt-3 rounded-bl-3xl rounded-tr-3xl' src="/assets/image 22.png" alt="" />
       </div>
       <div className="text w-96">
         <h5 className='text-brown font-semibold text-3xl'>About Us</h5>
@@ -96,7 +98,11 @@ const AboutUs = () => {
           <img className='mx-4 py-5' width={200} src="https://pics.craiyon.com/2023-07-15/dc2ec5a571974417a5551420a4fb0587.webp" alt="image" />
           <img className='mx-4 py-5' width={200} src="https://pics.craiyon.com/2023-07-15/dc2ec5a571974417a5551420a4fb0587.webp" alt="image" />
         </div>
+        
       </div>
+      <div>
+          <img src="/assets/Frame.png" width={5000} alt="" />
+        </div>
     </>
   )
 }

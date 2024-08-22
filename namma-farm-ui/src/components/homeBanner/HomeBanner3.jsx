@@ -1,21 +1,11 @@
 import React from 'react'
+import SingleOvalProduct from '../singleOvalProduct/SingleOvalProduct'
 
 
-const SingleOvalProduct = () => {
+const HomeBanner3 = ({ items }) => {
     return (
         <>
-            <div className='bg-white w-40 flex flex-col items-center my-4 rounded-full '>
-                <img src="" alt="image" />
-                <p>Title</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
-            </div>
-        </>
-    )
-}
-const HomeBanner3 = () => {
-    return (
-        <>
-            <div className="upper-div bg-yellow pt-12 h-96">
+            <div className="upper-div bg-yellow py-12 ">
                 <div className='flex  h-72 ml-28 '>
                     <div className="left-div mt-12 mx-2  w-40">
                         <span className='text-3xl font-semibold'>Shop by</span><br />
@@ -32,28 +22,25 @@ const HomeBanner3 = () => {
                         </div>
                     </div>
                     <div className="right-div w-full flex justify-evenly  h-72">
-                        <SingleOvalProduct />
-                        <SingleOvalProduct />
-                        <SingleOvalProduct />
-                        <SingleOvalProduct />
+                        {items.map(item => <SingleOvalProduct item={item} />)}
                     </div>
                 </div>
-
             </div>
-            <div className="lower-div h-96 bg-gray-400 flex items-center justify-center">
-                   <div className=' w-80 rounded-2xl h-64 mr-44'>
+
+            <div className="lower-div flex  py-12 bg-banner items-center justify-center">c
+                <div className=' w-80  top-10 rounded-2xl h-64 mr-44'>
                     <p className='font-semibold text-4xl text-white pt-14'>What people <br /> say about us</p>
-                   </div>
-                   <div className='bg-white pl-4 pt-2 w-72 rounded-2xl h-64 mx-4'>
+                </div>
+                <div className='bg-white pl-4 pt-2 w-72 rounded-2xl h-64 mx-4'>
                     <p className='font-semibold text-3xl'>Name</p>
                     <p>comapny</p>
                     <p className='mt-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi recusandae aut natus tenetur voluptatibus velit magni harum, doloribus corrupti.</p>
-                   </div>
-                   <div className='bg-white pl-4 pt-2 w-72 rounded-2xl h-64 mx-4'>
+                </div>
+                <div className='bg-white pl-4 pt-2 w-72 rounded-2xl h-64 mx-4'>
                     <p className='font-semibold text-3xl'>Name</p>
                     <p>comapny</p>
                     <p className='mt-8'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi recusandae aut natus tenetur voluptatibus velit magni harum, doloribus corrupti.</p>
-                   </div>
+                </div>
             </div>
         </>
     )

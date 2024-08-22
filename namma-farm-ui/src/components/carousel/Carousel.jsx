@@ -2,7 +2,11 @@ import React from 'react'
 
 const Carousel = () => {
   return (
-    <div>Carousel</div>
+    <>
+    <div className='bg-carousal h-96 w-full'>
+
+    </div>
+    </>
   )
 }
 
